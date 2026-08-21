@@ -98,7 +98,13 @@ def create_driver(proxy=None):
     else:
         log.info("Direct connection (no proxy)")
 
-    service = Service(ChromeDriverManager().install())
+    # Selenium Docker image has chromedriver at /usr/bin/chromedriver
+    # Fallback to webdriver-manager if not found
+    import shutil
+    cd_path = shutil.which("chromedriver") or "/usr/bin/chromedriver"
+    if not os.path.exists(cd_path):
+        cd_path = ChromeDriverManager().install()
+    service = Service(cd_path)
     driver = webdriver.Chrome(service=service, options=options)
     driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
         "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
