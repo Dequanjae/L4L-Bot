@@ -1,0 +1,84 @@
+# docker-compose.yml — L4L-Bot Credit Farming Fleet
+# 3 containers, each farms credits on Like4Like + AddMeFast 24/7
+# $0/month — uses free rotating proxies from public GitHub lists
+#
+# BEFORE DEPLOYING:
+#   1. Create 3 free Like4Like accounts (like4like.org) — different emails
+#   2. Create 3 free AddMeFast accounts (addmefast.com) — different emails
+#   3. Fill in credentials below
+#   4. docker compose up -d --build
+
+version: "3.8"
+
+services:
+  farmer1:
+    build: ./farmer
+    container_name: credit-farmer-1
+    restart: unless-stopped
+    environment:
+      - FARMER_ID=farmer1
+      # Like4Like account 1
+      - LIKE4LIKE_USER=CHANGE_ME_L4L_EMAIL_1
+      - LIKE4LIKE_PASS=CHANGE_ME_L4L_PASS_1
+      # AddMeFast account 1
+      - ADDMEFAST_USER=CHANGE_ME_AMF_EMAIL_1
+      - ADDMEFAST_PASS=CHANGE_ME_AMF_PASS_1
+      # Settings
+      - USE_PROXY=true
+      - MAX_TASKS_PER_RUN=40
+      - SLEEP_MIN=15
+      - SLEEP_MAX=45
+    volumes:
+      - ./logs/farmer1:/app/logs/farmer1
+      - ./shared:/app/shared
+    shm_size: "2g"
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+
+  farmer2:
+    build: ./farmer
+    container_name: credit-farmer-2
+    restart: unless-stopped
+    environment:
+      - FARMER_ID=farmer2
+      - LIKE4LIKE_USER=CHANGE_ME_L4L_EMAIL_2
+      - LIKE4LIKE_PASS=CHANGE_ME_L4L_PASS_2
+      - ADDMEFAST_USER=CHANGE_ME_AMF_EMAIL_2
+      - ADDMEFAST_PASS=CHANGE_ME_AMF_PASS_2
+      - USE_PROXY=true
+      - MAX_TASKS_PER_RUN=40
+      - SLEEP_MIN=15
+      - SLEEP_MAX=45
+    volumes:
+      - ./logs/farmer2:/app/logs/farmer2
+      - ./shared:/app/shared
+    shm_size: "2g"
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+
+  farmer3:
+    build: ./farmer
+    container_name: credit-farmer-3
+    restart: unless-stopped
+    environment:
+      - FARMER_ID=farmer3
+      - LIKE4LIKE_USER=CHANGE_ME_L4L_EMAIL_3
+      - LIKE4LIKE_PASS=CHANGE_ME_L4L_PASS_3
+      - ADDMEFAST_USER=CHANGE_ME_AMF_EMAIL_3
+      - ADDMEFAST_PASS=CHANGE_ME_AMF_PASS_3
+      - USE_PROXY=true
+      - MAX_TASKS_PER_RUN=40
+      - SLEEP_MIN=15
+      - SLEEP_MAX=45
+    volumes:
+      - ./logs/farmer3:/app/logs/farmer3
+      - ./shared:/app/shared
+    shm_size: "2g"
+    deploy:
+      resources:
+        limits:
+          memory: 2g
