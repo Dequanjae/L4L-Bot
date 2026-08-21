@@ -215,7 +215,7 @@ def l4l_farm(page, context):
 # ─── ADDMEFAST ──────────────────────────────────────────
 def amf_login(page):
     log.info("AddMeFast login...")
-    page.goto("https://addmefast.com/login", wait_until="domcontentloaded", timeout=30000)
+    page.goto("https://addmefast.it/login", wait_until="domcontentloaded", timeout=30000)
     delay(2, 4)
     try:
         page.fill("input[name='username']", ADDMEFAST_USER)
@@ -237,11 +237,11 @@ def amf_farm(page, context):
     credits = 0
 
     earn_pages = [
-        ("IG Likes", "https://addmefast.com/free_points/instagram_likes"),
-        ("IG Followers", "https://addmefast.com/free_points/instagram_followers"),
-        ("YT Views", "https://addmefast.com/free_points/youtube_views"),
-        ("YT Likes", "https://addmefast.com/free_points/youtube_likes"),
-        ("FB Likes", "https://addmefast.com/free_points/facebook_likes"),
+        ("IG Likes", "https://addmefast.it/free_points/instagram_likes"),
+        ("IG Followers", "https://addmefast.it/free_points/instagram_followers"),
+        ("YT Views", "https://addmefast.it/free_points/youtube_views"),
+        ("YT Likes", "https://addmefast.it/free_points/youtube_likes"),
+        ("FB Likes", "https://addmefast.it/free_points/facebook_likes"),
     ]
 
     btn_selectors = [
