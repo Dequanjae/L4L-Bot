@@ -12,15 +12,14 @@ RUN apt-get update && apt-get install -y \
     fonts-liberation xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Google Chrome
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg && \
+# Install Google Chrome (use wget for keyring, avoid apt-key deprecation)
+RUN wget -q -O /tmp/google-chrome-key.asc https://dl.google.com/linux/linux_signing_key.pub && \
+    gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg /tmp/google-chrome-key.asc && \
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     apt-get update && apt-get install -y google-chrome-stable && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* /tmp/google-chrome-key.asc
 
-# Install ChromeDriver using webdriver-manager approach (pip handles it at runtime)
-# We use selenium's built-in manager instead of hardcoding URLs
-RUN pip install --no-cache-dir webdriver-manager
+# ChromeDriver is installed at runtime by webdriver-manager (pip package)
 
 WORKDIR /app
 
