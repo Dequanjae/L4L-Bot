@@ -37,6 +37,7 @@ from selenium.common.exceptions import (
     WebDriverException,
 )
 from fake_useragent import UserAgent
+from webdriver_manager.chrome import ChromeDriverManager
 from proxy_rotator import fetch_free_proxies, get_working_proxy
 
 # ─── CONFIG ──────────────────────────────────────────────
@@ -97,7 +98,7 @@ def create_driver(proxy=None):
     else:
         log.info("Direct connection (no proxy)")
 
-    service = Service("/usr/local/bin/chromedriver")
+    service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
     driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
         "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
