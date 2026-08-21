@@ -29,7 +29,7 @@ from proxy_rotator import fetch_free_proxies, get_working_proxy
 FARMER_ID        = os.getenv("FARMER_ID", "farmer1")
 LIKE4LIKE_USER   = os.getenv("LIKE4LIKE_USER", "")
 LIKE4LIKE_PASS   = os.getenv("LIKE4LIKE_PASS", "")
-ADDMEFAST_USER   = os.getenv("ADDMEOFAST_USER", "")
+ADDMEFAST_USER   = os.getenv("ADDMEFAST_USER", "")
 ADDMEFAST_PASS   = os.getenv("ADDMEFAST_PASS", "")
 USE_PROXY        = os.getenv("USE_PROXY", "true").lower() == "true"
 MAX_TASKS        = int(os.getenv("MAX_TASKS_PER_RUN", "40"))
